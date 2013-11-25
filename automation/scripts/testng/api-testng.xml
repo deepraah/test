@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="testsuite" parallel="none">
+  <test verbose="1" name="testsuites" annotations="JDK">
+    <groups>
+      <run>
+	      <include name="execute" />
+      </run>
+    </groups>
+    <classes>
+      <class name="com.deepu.automation.eventapis.ProvisioningApi">
+        <!--<methods>
+          <include name="ListApi"/>
+          <include name="rediffNews"/>
+        </methods> -->
+      </class>
+    </classes> 
+  </test>
+</suite>

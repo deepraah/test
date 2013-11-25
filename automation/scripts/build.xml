@@ -1,0 +1,42 @@
+<project name="test" default="run" basedir=".">
+
+	<property name="workspace.dir" value="${workspace.dir}" />
+	<property name="automation.dir" value="${workspace.dir}/automation" />
+	<property name="testsuites.dir" value="${workspace.dir}/testsuites" />
+	<property name="output.dir" value="${workspace.dir}/output" />
+	<property name="results.dir" value="${workspace.dir}/results" />
+	<property name="testng.file" value="${workspace.dir}/automation/scripts/testng/${testngfile}" />
+ 
+	<path id="classpath">
+	    <pathelement location="${output.dir}"/>
+	    <fileset dir="${automation.dir}/tools">
+		<include name="**/*.jar"/>
+	    </fileset>
+	</path>
+	 
+	<taskdef name="testng" classpathref="classpath" classname="org.testng.TestNGAntTask" />
+		    
+     	<target name="run" depends="compile">
+	       <testng classpathref="classpath" suitename="testsuites" outputDir="${results.dir}">
+		       <xmlfileset dir="${automation.dir}/scripts/testng" includes="${testng.file}"/> 
+		       <sysproperty key="properties.file.name" value="${testsuites.dir}/${includemodules}/resources/config.properties" />
+		       <sysproperty key="message.file.location" value="${testsuites.dir}/${includemodules}" />
+	       </testng>
+	</target>
+
+        <target name="compile" depends="clean">
+		<javac encoding="UTF-8" destdir="${output.dir}" verbose="${debug}">
+			<src path="${testsuites.dir}/${includemodules}" />
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+
+	<target name="clean">
+		<delete dir="${output.dir}" />
+		<delete dir="${results.dir}" />
+		<mkdir dir="${output.dir}" />
+		<mkdir dir="${results.dir}" />
+	</target>
+</project>
+
